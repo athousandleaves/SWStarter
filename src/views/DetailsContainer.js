@@ -15,6 +15,22 @@ export default class DetailsContainer extends Component {
     };
   }
 
+  checkCache = urls => {
+    const cached = urls.filter(url => localStorage.getItem(url));
+    const fresh = urls.filter(url => !localStorage.getItem(url));
+    const parsedCache = cached.map(item => JSON.parse(localStorage.getItem(item)));
+    this.setState(
+      {
+        details: [...this.state.details, ...parsedCache]
+      },
+      () => {
+        fresh.length
+          ? this.fetchResources(fresh)
+          : this.setState({ loading: false });
+      }
+    );
+  };
+
   fetchResources = urls => {
     Promise.all(urls.map(url => fetch(url))).then(res => {
       Promise.all(res.map(blob => blob.json())).then(details => {
