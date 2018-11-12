@@ -11,7 +11,17 @@ export default class Home extends Component {
       details: null
     };
   }
-
+  search = (resource, query) => {
+    this.setState({ loading: true });
+    fetch(`https://swapi.co/api/${resource}/?search=${query}`)
+      .then(res => res.json())
+      .then(results => {
+        results.count
+          ? this.setState({ searchResults: results, loading: false })
+          : this.setState({ loading: false });
+      })
+      .catch(err => console.log(err));
+  };
   render() {
     return (
       <div className="main">
