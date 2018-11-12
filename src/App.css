@@ -5,8 +5,6 @@
 body {
   background-color: #ededed;
   font-family: 'Montserrat', sans-serif;
-  animation-duration: 3s;
-  animation-name: fadein;
 }
 
 @keyframes fadein {
@@ -74,6 +72,8 @@ a:hover {
   display: grid;
   grid-gap: 1rem;
   margin: 1rem 0;
+  animation-duration: 3s;
+  animation-name: fadein;
 }
 
 .MatchesBG {
