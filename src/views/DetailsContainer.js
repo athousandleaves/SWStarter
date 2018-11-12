@@ -15,6 +15,9 @@ export default class DetailsContainer extends Component {
     };
   }
 
+  componentDidMount() {
+    this.checkCache(this.state.urls);
+  }
   checkCache = urls => {
     const cached = urls.filter(url => localStorage.getItem(url));
     const fresh = urls.filter(url => !localStorage.getItem(url));
