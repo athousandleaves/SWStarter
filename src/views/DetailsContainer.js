@@ -18,6 +18,24 @@ export default class DetailsContainer extends Component {
   componentDidMount() {
     this.checkCache(this.state.urls);
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      this.setState(
+        {
+          loading: true,
+          details: [],
+          urls:
+            this.props.location.state.details.characters ||
+            this.props.location.state.details.films
+        },
+        () => {
+          this.checkCache(this.state.urls);
+        }
+      );
+    }
+  }
+
   checkCache = urls => {
     const cached = urls.filter(url => localStorage.getItem(url));
     const fresh = urls.filter(url => !localStorage.getItem(url));
